@@ -4,7 +4,7 @@ docker container run \
 -it \
 --rm \
 --name=spiking-initializer-shim \
--p 5003:3000 \
+-p 4000:4000 \
 -v "$(pwd)":/app \
 -v "$(pwd)"/../spiking-model-configuration/configuration/:/configuration \
 louisross/spiking-initializer-shim:1.0 \

@@ -7,7 +7,7 @@ console.log(configuration);
 
 var singleton = require('./socket-listener.js');
 const listener = singleton.getInstance();
-listener.Listen(3000, configuration);
+listener.Listen(4000, configuration);
 
 process.stdin.resume();//so the program will not close instantly
 
