@@ -42,7 +42,7 @@ const HandleGetModelExpansion = function(connection, buffer, configuration) {
       var connectionBuffer = Buffer.alloc(12);
       connectionBuffer.writeUInt32LE(connection[0], 0);
       connectionBuffer.writeUInt32LE(connection[1], 4);
-      connectionBuffer.writeUInt32LE(Math.round(connection[2] * 100), 8);
+      connectionBuffer.writeInt32LE(Math.round(connection[2] * 100), 8);
       totalLength += 12;
 
       expansionBuffers.push(connectionBuffer);
