@@ -39,10 +39,13 @@ const HandleGetModelExpansion = function(connection, buffer, configuration) {
 
     var expansionBuffers = [];
     data.data.value.forEach(connection => {
+      console.log(`Returning conection from ${connection[0]} to ${connection[1]} at strength ${connection[2] * 100} of type ${connection[3]}`)
       var connectionBuffer = Buffer.alloc(12);
       connectionBuffer.writeUInt32LE(connection[0], 0);
       connectionBuffer.writeUInt32LE(connection[1], 4);
-      connectionBuffer.writeInt32LE(Math.round(connection[2] * 100), 8);
+      //connectionBuffer.writeInt32LE(Math.round(connection[2] * 100), 8);
+      connectionBuffer.writeUInt16LE(Math.round(connection[2] * 100), 8);
+      connectionBuffer.writeUInt16LE(Math.round(connection[3]), 10);
       totalLength += 12;
 
       expansionBuffers.push(connectionBuffer);
