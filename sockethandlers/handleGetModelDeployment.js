@@ -48,7 +48,7 @@ const HandleGetModelDeployment = function(connection, buffer, configuration) {
         }
 
         totalNeuronCount += neuronCount;
-        deployment.push(neuronCount);
+        deployment.push({'engine': deploymentEngine, 'count': neuronCount});
       }
 
       // Return the array.
@@ -65,12 +65,13 @@ const HandleGetModelDeployment = function(connection, buffer, configuration) {
       totalLength += 4;
   
       var deploymentBuffers = [];
-      deployment.forEach(neuronCount => {
-        var neuronCountBuffer = Buffer.alloc(4);
-        neuronCountBuffer.writeUInt32LE(neuronCount, 0);
-        totalLength += 4;
+      deployment.forEach(expansion => {
+        var expansionBuffer = Buffer.alloc(84);
+        expansionBuffer.from(expansion.engine);  // TODO - truncate to 79 characters.
+        expansionBuffer.writeUInt32LE(expansion.count, 80);
+        totalLength += 84;
   
-        deploymentBuffers.push(neuronCountBuffer);
+        deploymentBuffers.push(expansionBuffer);
       });
         
       var bufferHeader = Buffer.alloc(4);

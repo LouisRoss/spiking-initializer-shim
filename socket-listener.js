@@ -3,6 +3,7 @@ const net = require('net');
 const HandleGetModelDescriptor = require('./sockethandlers/handleGetModelDescriptor');
 const HandleGetModelExpansion = require('./sockethandlers/handleGetModelExpansion');
 const HandleGetModelDeployment = require('./sockethandlers/handleGetModelDeployment');
+const HandleGetModelInterconnects = require('./sockethandlers/handleGetModelInterconnects');
 
 
 const HandleQuery = function(connection, buffer, configuration) {
@@ -21,6 +22,9 @@ const HandleQuery = function(connection, buffer, configuration) {
 
     case 2:
       return HandleGetModelDeployment(connection, buffer, configuration);
+  
+    case 3:
+      return HandleGetModelInterconnects(connection, buffer, configuration);
   
     default:
       console.log(`Unrecognized query command ${queryCommand}`);
