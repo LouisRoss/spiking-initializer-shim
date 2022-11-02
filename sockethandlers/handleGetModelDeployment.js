@@ -66,12 +66,14 @@ const HandleGetModelDeployment = function(connection, buffer, configuration) {
   
       var deploymentBuffers = [];
       deployment.forEach(expansion => {
-        var expansionBuffer = Buffer.alloc(84);
-        expansionBuffer.from(expansion.engine);  // TODO - truncate to 79 characters.
-        expansionBuffer.writeUInt32LE(expansion.count, 80);
-        totalLength += 84;
-  
+        const paddedEngineName = expansion.engine.padEnd(80, '\0');
+        const engineBuffer = Buffer.from(paddedEngineName);
+        var countBuffer = Buffer.alloc(4);
+        countBuffer.writeUInt32LE(expansion.count, 0);
+        
+        var expansionBuffer = Buffer.concat([engineBuffer, countBuffer]);
         deploymentBuffers.push(expansionBuffer);
+        totalLength += 84;
       });
         
       var bufferHeader = Buffer.alloc(4);
