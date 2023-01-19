@@ -58,12 +58,12 @@ const HandleGetModelInterconnects = function(connection, buffer, configuration) 
     var interconnectBuffers = [];
     interconnects.forEach(interconnect => {
       var interconnectBuffer = Buffer.alloc(6 * 4);
-      interconnectBuffer.writeUInt32LE(interconnect.FromIndex, 0);
-      interconnectBuffer.writeUInt32LE(interconnect.FromOffset, 4);
-      interconnectBuffer.writeUInt32LE(interconnect.FromCount, 8);
-      interconnectBuffer.writeUInt32LE(interconnect.ToIndex, 12);
-      interconnectBuffer.writeUInt32LE(interconnect.ToOffset, 16);
-      interconnectBuffer.writeUInt32LE(interconnect.ToCount, 20);
+      interconnectBuffer.writeUInt32LE(interconnect[0], 0);
+      interconnectBuffer.writeUInt32LE(interconnect[1], 4);
+      interconnectBuffer.writeUInt32LE(interconnect[2], 8);
+      interconnectBuffer.writeUInt32LE(interconnect[3], 12);
+      interconnectBuffer.writeUInt32LE(interconnect[4], 16);
+      interconnectBuffer.writeUInt32LE(interconnect[5], 20);
       totalLength += 6 * 4;
 
       interconnectBuffers.push(interconnectBuffer);
